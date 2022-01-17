@@ -4,10 +4,10 @@ import com.ariel.restController.model.Question;
 import com.ariel.restController.model.Survey;
 import org.springframework.stereotype.Service;
 
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class SurveyService {
@@ -22,7 +22,7 @@ public class SurveyService {
         surveys.add(survey);
     }
 
-    private SecureRandom random = new SecureRandom();
+    private Random random = new Random();
 
     public List<Survey> retrieveAllSurveys() {
         return new ArrayList<>(surveys);
@@ -70,10 +70,12 @@ public class SurveyService {
             return null;
         }
 
-        int randomId = random.nextInt();
+        int randomId = random.nextInt(255);
         question.setId(randomId);
 
-        survey.getQuestions().add(question);
+        List<Question> newQuestions = new ArrayList<>(survey.getQuestions());
+        newQuestions.add(question);
+        survey.setQuestions(newQuestions);
 
         return question;
     }
