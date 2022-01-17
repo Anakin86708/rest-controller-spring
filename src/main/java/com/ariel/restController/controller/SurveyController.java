@@ -1,6 +1,7 @@
 package com.ariel.restController.controller;
 
 import com.ariel.restController.model.Question;
+import com.ariel.restController.model.Survey;
 import com.ariel.restController.services.SurveyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,11 @@ public class SurveyController {
 
     @Autowired
     SurveyService service;
+
+    @GetMapping("/surveys")
+    public List<Survey> getAllSurveys() {
+        return service.retrieveAllSurveys();
+    }
 
     @GetMapping("/surveys/{surveyId}/questions")
     public List<Question> getQuestionsFromSurvey(@PathVariable int surveyId) {
